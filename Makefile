@@ -6,7 +6,7 @@
 #    By: eplumeco <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/02/09 13:27:13 by eplumeco          #+#    #+#              #
-#    Updated: 2016/02/09 15:37:55 by eplumeco         ###   ########.fr        #
+#    Updated: 2016/03/09 18:23:49 by eplumeco         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,7 @@ PATH_MINILIBX = minilibx/
 MINILIBX = minilibx/libmlx.a  -framework OpenGL -framework AppKit
 
 CC = clang
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -g
 
 SRC = $(addprefix $(SRC_PATH)/, $(SRC_NAME))
 OBJ = $(addprefix $(OBJ_PATH)/, $(OBJ_NAME))

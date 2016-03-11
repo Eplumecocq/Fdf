@@ -6,7 +6,7 @@
 /*   By: eplumeco <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/04 17:04:25 by eplumeco          #+#    #+#             */
-/*   Updated: 2016/03/09 16:43:51 by eplumeco         ###   ########.fr       */
+/*   Updated: 2016/03/10 14:54:31 by eplumeco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ t_img	drawing(t_mlx *mlx, t_map *map)
 		coord.x = 0;
 		while (coord.x < (*map).columns_nb - 1)
 		{
-			if (check_tab_lines(mlx, map) == 1)
+			if (check_tab_lines(mlx, map, coord) == 1)
 			{
 				draw_lines(&img, map->tab[coord.y][coord.x], 
 								map->tab[coord.y][coord.x + 1], 0x00FF00);
@@ -89,7 +89,7 @@ t_img	drawing(t_mlx *mlx, t_map *map)
 		coord.y = 0;
 		while (coord.y < (*map).lines_nb - 1)
 		{
-			if (check_tab_columns(mlx, map) == 1)
+			if (check_tab_columns(mlx, map, coord) == 1)
 			{
 				draw_lines(&img, map->tab[coord.y][coord.x], 
 								map->tab[coord.y + 1][coord.x], 0x00FF00);

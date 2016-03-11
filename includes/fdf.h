@@ -6,7 +6,7 @@
 /*   By: eplumeco <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/09 15:26:17 by eplumeco          #+#    #+#             */
-/*   Updated: 2016/03/09 18:11:54 by eplumeco         ###   ########.fr       */
+/*   Updated: 2016/03/10 14:53:53 by eplumeco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,8 +72,8 @@ t_img				drawing(t_mlx *mlx, t_map *map);
 
 void				iso_view(t_mlx *mlx, t_map *map);
 
-int					check_tab_lines(t_mlx *mlx, t_map *map);
-int					check_tab_columns(t_mlx *mlx, t_map *map);
+int					check_tab_lines(t_mlx *mlx, t_map *map, t_coord coord);
+int					check_tab_columns(t_mlx *mlx, t_map *map, t_coord coord);
 
 
 #endif
