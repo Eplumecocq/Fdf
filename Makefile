@@ -1,19 +1,20 @@
 # **************************************************************************** #
 #                                                                              #
 #                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
+#     Makefile                                          :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
 #    By: eplumeco <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2016/02/09 13:27:13 by eplumeco          #+#    #+#              #
-#    Updated: 2016/03/09 18:23:49 by eplumeco         ###   ########.fr        #
+#    Created: 2016/03/11 17:42:27 by eplumeco          #+#    #+#              #
+#    Updated: 2016/03/15 14:44:33 by eplumeco         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
+
 
 NAME = fdf
 
 SRC_PATH = src
-SRC_NAME = main.c parsing.c check.c drawing.c iso_view.c
+SRC_NAME = main.c parsing.c draw_lines.c draw_grid.c view.c check.c
 
 OBJ_PATH = obj
 OBJ_NAME = $(SRC_NAME:.c=.o)
@@ -32,11 +33,7 @@ SRC = $(addprefix $(SRC_PATH)/, $(SRC_NAME))
 OBJ = $(addprefix $(OBJ_PATH)/, $(OBJ_NAME))
 INC = $(addprefix -I,$(PATH_INC) $(PATH_LIBFT) $(PATH_MINILIBX))
 
-#all: debug
 all: makelibft makeminilibx $(NAME)
-
-debug:
-	echo $(OBJ)
 
 $(NAME): $(OBJ)
 	$(CC) $(CFLAGS) $(INC) $(LIBFT) $(MINILIBX) $(OBJ) -o $(NAME)
