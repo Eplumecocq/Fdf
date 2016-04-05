@@ -5,80 +5,68 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: eplumeco <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/03/11 18:10:54 by eplumeco          #+#    #+#             */
-/*   Updated: 2016/03/15 14:43:48 by eplumeco         ###   ########.fr       */
+/*   Created: 2016/04/01 10:38:59 by eplumeco          #+#    #+#             */
+/*   Updated: 2016/04/01 17:18:35 by eplumeco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fdf.h"
-#include "libft.h"
+#include <fcntl.h>
 #include <stdlib.h>
+#include "libft.h"
+#include "fdf.h"
+
+void	free_tab(char **tab)
+{
+	int		j;
+
+	j = 0;
+	while (tab[j])
+		free(tab[j++]);
+	free(tab);
+}
 
 int		lines_nb(char *filename)
 {
-	int		i;
 	int		fd;
+	int		nb_line;
 	char	*line;
 
-	i = 0;
 	fd = open(filename, O_RDONLY);
+	nb_line = 0;
 	while (get_next_line(fd, &line) > 0)
 	{
-			i++;
+		nb_line++;
 		free(line);
 	}
 	close(fd);
-	return(i);
+	return(nb_line);
 }
 
 int		columns_nb(char *filename, int line_nb)
-{	
-	int		j;
+{
 	int		fd;
-	int		null;
+	int		i;
+	int		nb_columns;
 	char	*line;
 	char	**tab;
 
-	j = 0;
-	null = 0;
 	fd = open(filename, O_RDONLY);
+	nb_columns  = 0;
+	i = 0;
 	while (get_next_line(fd, &line) > 0)
 	{
-		null++;
-		if (null == line_nb)
+		i++;
+		if (i == line_nb)
 		{
 			tab = ft_strsplit(line, ' ');
-			while (tab[j])
-					j++;
-			free(tab);
+			while (tab[nb_columns])
+				nb_columns++;
+			free_tab(tab);
 		}
 		free(line);
 	}
 	close(fd);
-	return(j);
-}
-
-void	check_valid_tab(char **tab)
-{
-	int		i;
-	int		j;
-
-	i = 0;
-	while (tab[i])
-	{	
-		j = 0;
-		if (tab[i][j] == '-' || tab[i][j] == '+')
-				j++;
-		while (tab[i][j])
-		{
-			if (!ft_isdigit(tab[i][j++]))
-			{
-				ft_putendl("an error has occurred");
-				exit(0);
-			}
-		}
-		i++;
-	}
+	return(nb_columns);
 }
 
 void	create_map(char *filename, t_map *map)
@@ -94,7 +82,7 @@ void	create_map(char *filename, t_map *map)
 	while (coord.y < map->lines_nb)
 	{
 		coord.x = 0;
-		map->parse[coord.y] = (int*)ft_memalloc(sizeof(int) * map->columns_nb);
+		map->parse[coord.y] = (int *)ft_memalloc(sizeof(int) * map->columns_nb);
 		get_next_line(fd, &line);
 		tab = ft_strsplit(line, ' ');
 		while (coord.x < map->columns_nb)
@@ -104,7 +92,7 @@ void	create_map(char *filename, t_map *map)
 			coord.x++;
 		}
 		free(line);
-		free(tab);
+		free_tab(tab);
 		coord.y++;
 	}
 	close(fd);
@@ -113,7 +101,7 @@ void	create_map(char *filename, t_map *map)
 t_map	parsing(char *filename)
 {
 	t_map	map;
-	
+
 	check_lines(filename);
 	map.lines_nb = lines_nb(filename);
 	map.columns_nb = columns_nb(filename, 1);

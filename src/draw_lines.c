@@ -5,59 +5,63 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: eplumeco <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/03/15 11:35:45 by eplumeco          #+#    #+#             */
-/*   Updated: 2016/03/15 14:45:01 by eplumeco         ###   ########.fr       */
+/*   Created: 2016/04/01 12:55:25 by eplumeco          #+#    #+#             */
+/*   Updated: 2016/04/01 16:56:23 by eplumeco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "mlx.h"
-#include "fdf.h"
 #include "libft.h"
+#include "fdf.h"
+#include "mlx.h"
 
-void	put_pixel_to_img(t_img *img, int y, int x, int color)
+void	put_pixel_to_image(t_img *img, int y, int x, int color)
 {
-	((int*)((*img).addr))[y * (*img).mlx.width + x] = color;
+	((int *)(img->addr))[y * img->mlx_width + x] = color;
 }
 
-void	create_line(t_math *line, t_coord *a, t_coord *b)
+void	create_line(t_math *math, t_coord *a, t_coord *b)
 {
-	line->steep = 0;
+	math->steep = 0;
 	if (ft_absolut(a->x - b->x) < ft_absolut(a->y - b->y))
 	{
 		ft_swap(&a->x, &a->y);
 		ft_swap(&b->x, &b->y);
-		line->steep = 1;
+		math->steep = 1;
 	}
 	if (a->x > b->x)
 	{
 		ft_swap(&a->x, &b->x);
 		ft_swap(&a->y, &b->y);
 	}
-	line->dx = b->x - a->x;
-	line->dy = b->y - a->y;
-	line->error = 0;
-	line->derror = ft_absolut(line->dy) * 2;
-	line->dot.x = a->x;
-	line->dot.y = a->y;
+	math->dx = b->x - a->x;
+	math->dy = b->y - a->y;
+	math->derror = ft_absolut(math->dy) * 2;
+	math->error = 0;
+	math->dot.x = a->x;
+	math->dot.y = a->y;
 }
 
 void	draw_lines(t_img *img, t_coord a, t_coord b, int color)
 {
-	t_math	line;
+	t_math math;
 
-	create_line(&line, &a, &b);
-	while (line.dot.x <= b.x)
+	create_line(&math, &a, &b);
+	while (math.dot.x <= b.x)
 	{
-		if (line.steep == 1)
-			put_pixel_to_img(img, line.dot.y, line.dot.x, color);
-		else
-			put_pixel_to_img(img, line.dot.x, line.dot.y, color);
-		line.error = line.derror + line.error;
-		if (line.error > line.dx)
+		if (math.dot.x < img->mlx_width && math.dot.y < img->mlx_width &&
+				math.dot.x >= 0 && math.dot.y >= 0)
 		{
-			line.dot.y += (b.y > a.y ? 1 : -1);
-			line.error -= line.dx * 2;
+			if (math.steep == 1)
+				put_pixel_to_image(img, math.dot.x, math.dot.y, color);
+			else
+				put_pixel_to_image(img, math.dot.y, math.dot.x, color);
 		}
-		line.dot.x++;
+		math.error = math.error + math.derror;
+		if (math.error > math.dx)
+		{
+			math.dot.y += (b.y > a.y ? 1 : -1);
+			math.error -= math.dx * 2;
+		}
+		math.dot.x++;
 	}
 }

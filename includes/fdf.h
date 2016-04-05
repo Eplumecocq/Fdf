@@ -5,87 +5,87 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: eplumeco <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/03/11 17:43:49 by eplumeco          #+#    #+#             */
-/*   Updated: 2016/03/15 14:51:02 by eplumeco         ###   ########.fr       */
+/*   Created: 2016/04/01 10:18:55 by eplumeco          #+#    #+#             */
+/*   Updated: 2016/04/05 17:25:38 by eplumeco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FDF_H
 # define FDF_H
-# define TILE_SIZE 32
 
-#include <fcntl.h>
-#include <stdlib.h>
+# include <fcntl.h>
+# include <stdlib.h>
 
-typedef struct		s_coord
+typedef struct	s_coord
 {
-	int				x;
-	int				y;
-}					t_coord;
+	int			x;
+	int			y;
+}				t_coord;
 
-typedef struct		s_mlx
+typedef struct	s_map
 {
-	void			*ptr;
-	void			*win;
-	int				width;
-	int				height;
-}					t_mlx;
+	int			columns_nb;
+	int			lines_nb;
+	int			**parse;
+	t_coord		**array;
+}				t_map;
 
-typedef struct		s_img
+typedef struct	s_mlx
 {
-	void			*ptr;
-	void			*addr;
-	int				bpp;
-	int				ndian;
-	int				size_line;
-	int				mlx_width;
-	t_mlx			mlx;
-}					t_img;
+	void		*ptr;
+	void		*win;
+	int			width;
+	int			height;
+}				t_mlx;
 
-typedef struct		s_math
+typedef struct	s_img
 {
-	int				dx;
-	int				dy;
-	int				error;
-	int				derror;
-	int				steep;
-	t_coord			dot;
-}					t_math;
+	void		*ptr;
+	void		*addr;
+	int			size_line;
+	int			dian;
+	int			bpp;
+	int			mlx_width;
+}				t_img;
 
-typedef struct		s_map
+typedef	struct	s_math
 {
-	t_coord			**array;
-	int				**parse;
-	int				lines_nb;
-	int				columns_nb;
-}					t_map;
+	int			dx;
+	int			dy;
+	int			steep;
+	int			error;
+	int			derror;
+	t_coord		dot;
+}				t_math;
 
-typedef struct		s_iso
+typedef struct	s_move
 {
-	int				midw;
-	int				midh;
-	int				pi;
-	int				po;
-}					t_iso;
+	t_coord		direc;
+	int			up;
+}				t_move;
 
-typedef struct		s_land
+typedef struct	s_source
 {
-	t_coord			m;
-	t_coord			a;
-	t_coord			r;
-	t_coord			k;
-}					t_land;
+	t_mlx		*mlx;
+	t_map		*map;
+	t_img		*img;
+	t_move		*mov;
+}				t_source;
 
 
-t_img				drawing(t_mlx *mlx, t_map *map);
-t_map				parsing(char *filename);
-void				view(t_mlx *mlx, t_map *map);
-void				check_lines(char *filename);
-void				check_valid_tab(char **tab);
-int					numb_of_lines(char *filename);
-int					numb_of_columns(char *filename);
-void	draw_Vlines(t_mlx *mlx, t_map *map, t_img *img);
-void	draw_Hlines(t_mlx *mlx, t_map *map, t_img *img);
-void	draw_lines(t_img *img, t_coord a, t_coord b, int color);
+void			create_map(char *filename, t_map *map);
+t_map			parsing(char *filename);
+int				lines_nb(char *filename);
+int				columns_nb(char *filename, int line_nb);
+void			draw_lines(t_img *img, t_coord a, t_coord b, int color);
+void			check_valid_tab(char **tab);
+void			check_lines(char *filename);
+t_img			drawing(t_mlx *mlx, t_map *map);
+int				key_commands(int key_pressed, t_source *src);
+void			view(t_mlx *mlx, t_map *map, t_move *mov);
+void			movement_up(t_mlx *mlx, t_map *map, t_img *img, t_move *mov);
+void			movement_down(t_mlx *mlx, t_map *map, t_img *img, t_move *mov);
+void			movement_left(t_mlx *mlx, t_map *map, t_img *img, t_move *mov);
+void			movement_right(t_mlx *mlx, t_map *map, t_img *img, t_move *mov);
 
 #endif
