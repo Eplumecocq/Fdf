@@ -6,7 +6,7 @@
 /*   By: eplumeco <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/01 10:18:55 by eplumeco          #+#    #+#             */
-/*   Updated: 2016/04/05 17:25:38 by eplumeco         ###   ########.fr       */
+/*   Updated: 2016/04/06 11:49:21 by eplumeco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,6 @@ typedef struct	s_source
 	t_move		*mov;
 }				t_source;
 
-
 void			create_map(char *filename, t_map *map);
 t_map			parsing(char *filename);
 int				lines_nb(char *filename);
@@ -82,10 +81,12 @@ void			check_valid_tab(char **tab);
 void			check_lines(char *filename);
 t_img			drawing(t_mlx *mlx, t_map *map);
 int				key_commands(int key_pressed, t_source *src);
-void			view(t_mlx *mlx, t_map *map, t_move *mov);
+void			isometric_view(t_mlx *mlx, t_map *map, t_move *mov);
 void			movement_up(t_mlx *mlx, t_map *map, t_img *img, t_move *mov);
 void			movement_down(t_mlx *mlx, t_map *map, t_img *img, t_move *mov);
 void			movement_left(t_mlx *mlx, t_map *map, t_img *img, t_move *mov);
 void			movement_right(t_mlx *mlx, t_map *map, t_img *img, t_move *mov);
+void			height_up(t_mlx *mlx, t_map *map, t_img *img, t_move *mov);
+void			height_down(t_mlx *mlx, t_map *map, t_img *img, t_move *mov);
 
 #endif

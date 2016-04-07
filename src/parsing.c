@@ -6,7 +6,7 @@
 /*   By: eplumeco <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/01 10:38:59 by eplumeco          #+#    #+#             */
-/*   Updated: 2016/04/01 17:18:35 by eplumeco         ###   ########.fr       */
+/*   Updated: 2016/04/07 12:07:11 by eplumeco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int		lines_nb(char *filename)
 		free(line);
 	}
 	close(fd);
-	return(nb_line);
+	return (nb_line);
 }
 
 int		columns_nb(char *filename, int line_nb)
@@ -51,7 +51,7 @@ int		columns_nb(char *filename, int line_nb)
 	char	**tab;
 
 	fd = open(filename, O_RDONLY);
-	nb_columns  = 0;
+	nb_columns = 0;
 	i = 0;
 	while (get_next_line(fd, &line) > 0)
 	{
@@ -66,7 +66,7 @@ int		columns_nb(char *filename, int line_nb)
 		free(line);
 	}
 	close(fd);
-	return(nb_columns);
+	return (nb_columns);
 }
 
 void	create_map(char *filename, t_map *map)

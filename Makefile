@@ -6,7 +6,7 @@
 #    By: eplumeco <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/03/11 17:42:27 by eplumeco          #+#    #+#              #
-#    Updated: 2016/04/05 17:21:07 by eplumeco         ###   ########.fr        #
+#    Updated: 2016/04/06 17:31:58 by eplumeco         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ NAME = fdf
 
 SRC_PATH = src
 SRC_NAME = main.c parsing.c draw_lines.c draw_grid.c view.c check_error.c \
-			movement.c key_commands.c
+			movement.c key_commands.c height.c
 
 OBJ_PATH = obj
 OBJ_NAME = $(SRC_NAME:.c=.o)

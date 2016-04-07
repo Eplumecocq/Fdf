@@ -6,7 +6,7 @@
 /*   By: eplumeco <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/01 10:25:04 by eplumeco          #+#    #+#             */
-/*   Updated: 2016/04/05 16:58:05 by eplumeco         ###   ########.fr       */
+/*   Updated: 2016/04/07 14:27:18 by eplumeco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "fdf.h"
 #include "mlx.h"
 
-t_mlx	create_mlx(int width, int height, char *title)
+t_mlx		create_mlx(int width, int height, char *title)
 {
 	t_mlx	mlx;
 
@@ -22,10 +22,10 @@ t_mlx	create_mlx(int width, int height, char *title)
 	mlx.win = mlx_new_window(mlx.ptr, width, height, title);
 	mlx.width = width;
 	mlx.height = height;
-	return(mlx);
+	return (mlx);
 }
 
-t_move		create_mov()
+t_move		create_mov(void)
 {
 	t_move	mov;
 
@@ -46,7 +46,7 @@ t_source	create_source(t_mlx *mlx, t_map *map, t_img *img, t_move *mov)
 	return (src);
 }
 
-int		main(int ac, char **av)
+int			main(int ac, char **av)
 {
 	t_source	src;
 	t_mlx		mlx;
@@ -57,14 +57,16 @@ int		main(int ac, char **av)
 	if (ac == 2)
 	{
 		map = parsing(av[1]);
-		mlx = create_mlx(1000, 1000, "FDF");
+		mlx = create_mlx(1200, 1200, av[1]);
 		mov = create_mov();
-		view(&mlx, &map, &mov);
+		isometric_view(&mlx, &map, &mov);
 		img = drawing(&mlx, &map);
 		src = create_source(&mlx, &map, &img, &mov);
 		mlx_put_image_to_window(mlx.ptr, mlx.win, img.ptr, 0, 0);
 		mlx_hook(mlx.win, 2, 0, key_commands, &src);
 		mlx_loop(mlx.ptr);
 	}
+	else
+		ft_putendl("No argument selected :'fdf' must be used with a map.");
 	return (0);
 }

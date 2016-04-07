@@ -6,7 +6,7 @@
 /*   By: eplumeco <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/05 15:36:20 by eplumeco          #+#    #+#             */
-/*   Updated: 2016/04/05 17:25:36 by eplumeco         ###   ########.fr       */
+/*   Updated: 2016/04/06 14:55:30 by eplumeco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@
 #define KEY_DOWN 125
 #define KEY_LEFT 123
 #define KEY_RIGHT 124
+#define KEY_HDOWN 78
+#define KEY_HUP 69
 
 int		key_commands(int key_pressed, t_source *src)
 {
@@ -32,5 +34,9 @@ int		key_commands(int key_pressed, t_source *src)
 		movement_left(src->mlx, src->map, src->img, src->mov);
 	if (key_pressed == KEY_RIGHT)
 		movement_right(src->mlx, src->map, src->img, src->mov);
+	if (key_pressed == KEY_HDOWN)
+		height_down(src->mlx, src->map, src->img, src->mov);
+	if (key_pressed == KEY_HUP)
+		height_up(src->mlx, src->map, src->img, src->mov);
 	return (0);
 }

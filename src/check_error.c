@@ -6,7 +6,7 @@
 /*   By: eplumeco <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/01 11:18:40 by eplumeco          #+#    #+#             */
-/*   Updated: 2016/04/01 17:08:38 by eplumeco         ###   ########.fr       */
+/*   Updated: 2016/04/07 13:55:39 by eplumeco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	check_valid_tab(char **tab)
 		{
 			if (!ft_isdigit(tab[i][j++]))
 			{
-				ft_putendl("An error has occurred");
+				ft_putendl("An error has occurred. Please use a correct map");
 				exit(0);
 			}
 		}
@@ -45,22 +45,22 @@ void	check_lines(char *filename)
 	lines = lines_nb(filename);
 	if (lines < 2)
 	{
-		ft_putendl("An error has occurred");
+		ft_putendl("An error has occurred. Please use a correct map");
 		exit(0);
 	}
 	nb_columns = columns_nb(filename, 1);
 	if (nb_columns < 2)
 	{
-		ft_putendl("An error has occured");
-		exit (0);
+		ft_putendl("An error has occured. Please use a correct map");
+		exit(0);
 	}
 	i = 1;
 	while (i <= lines)
 	{
 		if (columns_nb(filename, i++) != nb_columns)
 		{
-			ft_putendl("An error has occured");
-			exit (0);
+			ft_putendl("An error has occured. Please use a correct map");
+			exit(0);
 		}
 	}
 }
